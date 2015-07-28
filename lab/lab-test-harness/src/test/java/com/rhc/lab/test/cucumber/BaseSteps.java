@@ -2,6 +2,7 @@ package com.rhc.lab.test.cucumber;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import com.rhc.lab.service.BookingRequestService;
 import com.rhc.lab.test.repository.BookingCucumberRepository;
 import com.rhc.lab.test.repository.VenueCucumberRepository;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -91,14 +93,14 @@ public class BaseSteps {
 	@Given("^the venue accomodates performances by a$")
 	public void the_venue_accomodates_performances_by_a(List<String> artistTypes)
 			throws Throwable {
-		List<PerformanceType> accomodations = new ArrayList<PerformanceType>();
-		for (String artistType : artistTypes) {
-			accomodations.add(PerformanceType.valueOf(artistType));
-		}
-
-		venue.setAccomodations(accomodations);
-
-		System.out.println("And first step: " + artistTypes);
+		// XXX Loop through the "artistTypes" list to assemble a list of
+		// PerformanceTypes.
+		// <hint: to create a PerformanceType from a string, try
+		// PerformanceType.valueOf(myString)>
+		// XXX Set the list of artistTypes on the "accomodations" field of the
+		// venue
+		// XXX Finally, remove the exception below.
+		throw new PendingException("Replace with step code here.");
 
 	}
 
@@ -156,16 +158,16 @@ public class BaseSteps {
 
 	@Then("^the booking should be \"(.*?)\"$")
 	public void the_booking_should_be(String bookingStatus) throws Throwable {
-		// XXX-Instructions
 
-		if (response.getBookingStatus() != null
-				&& !response.getBookingStatus().isEmpty()) {
-			BookingStatus status = response.getBookingStatus().iterator()
-					.next();
-			Assert.assertTrue(bookingStatus.equalsIgnoreCase(status.toString()));
-		} else {
-			Assert.fail("No booking status returned from the knowledge session.");
-		}
+		Collection<BookingStatus> statuses = response.getBookingStatus();
+
+		// XXX - Using the collection provided above, grab the single status in
+		// the collection and
+		// assert with JUnit that the "bookingStatus" parameter matches the
+		// response status.
+		// <hint: use org.junit.Assert.assertTrue(...) on the two statuses.
+		// XXX - Finally, remove the exception below.
+		throw new PendingException("Replace with step code here.");
 
 	}
 
