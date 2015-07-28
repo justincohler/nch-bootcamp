@@ -78,7 +78,7 @@ No let's set up a local server to test out our application.
 6. Start the new server by right clicking on the new server and clicking "Start"
 7. Point to localhost:8080/ in your web browser and you should have the application running on your local machine with a local database.
 
-##Day 2 - Business Rules and Process Modeling##
+##Day 2! - Business Rules and Process Modeling##
 ###Goals###
 1. To get familiar with BDD (Behavior-Driven-Development) by using the Cucumber test Framework
 1. Learn how to write Business Rules, and touch integration endpoints in Business Processes
