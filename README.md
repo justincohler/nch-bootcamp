@@ -58,7 +58,7 @@ OpenShift Command Line Tools 	| [link](https://developers.openshift.com/en/manag
 
 That's it! You now have a web application running business rules and Camel services on top of a MongoDB database.
 
-##Day 2! - Business Rules and Process Modeling##
+##Day 2 - Business Rules and Process Modeling##
 ###Goals###
 1. Learn how to write Business Rules, and touch integration endpoints in Business Processes
 1. To get familiar with BDD (Behavior-Driven-Development) by using the Cucumber test Framework
