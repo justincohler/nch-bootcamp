@@ -54,8 +54,29 @@ OpenShift Command Line Tools 	| [link](https://developers.openshift.com/en/manag
 	* This will output the generated users and passwords for the EAP Admin Console, which you can use to configure persistence in the webapp.
 
 1. In your browser, navigate to https://nchlab-<YOUR-DOMAIN>.rhcloud.com/
+	* You now have a web application running business rules and Camel services on top of a MongoDB database!
 
-That's it! You now have a web application running business rules and Camel services on top of a MongoDB database.
+Now we will import the projects from the "nchlab" repository into the JBDS (JBoss Developer Studio) IDE.
+
+1. Start JBDS and once you have opened a workspace, click File->Import...
+1. In the Import wizard, Expand the "Maven" folder, and click "Existing Maven Projects"
+1. Select the directory where you cloned your nchlab repository.
+1. Select all the projects in the parent directory, and complete the wizard. In the Project Editor, you should have 9 projects imported.
+1. Right click on the "lab" project, then click Run As->Maven Build...
+1. In the Build popup, enter:
+	* Goals: clean install
+	* Profiles: openshift
+1. Click 'Run' to perform the Maven build and ensure that the project build is successful.
+
+No let's set up a local server to test out our application.
+
+1. Make sure that you have locally installed either JBoss EWS 2 and have a local MongoDB database running.
+2. In the "Servers" view of JBDS, right click and click on New->Server...
+3. In the following dialogues, select a new Tomcat 7 server and point to the EWS installation on your machine.
+4. On the "Add and Remove" screen, add the lab-web project in the "Available" column to the "Configured" column and click finish.
+5. In the web.xml of the lab-web project, under the "spring.profiles.active" context-param, change "openshift" to "default" to switch the Spring profile to your local configuration.
+6. Start the new server by right clicking on the new server and clicking "Start"
+7. Point to localhost:8080/ in your web browser and you should have the application running on your local machine with a local database.
 
 ##Day 2 - Business Rules and Process Modeling##
 ###Goals###
@@ -96,3 +117,4 @@ lab-test-harness/src/test/resources/features/lab.feature
 1. TODO
 
 ###Instructions###
+
