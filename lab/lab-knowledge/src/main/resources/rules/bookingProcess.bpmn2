@@ -20,8 +20,8 @@
     <endEvent id="_jbpm-unique-1" name="End" >
         <terminateEventDefinition />
     </endEvent>
-    <!-- XXX-Instructions -->
-    <businessRuleTask id="_jbpm-unique-2" name="Validate Booking" g:ruleFlowGroup="validate" >
+    <!-- XXX - Fix the business rule task configuration below to connect to the business rules written -->
+    <businessRuleTask id="_jbpm-unique-2" name="Validate Booking" g:ruleFlowGroup="???" >
     </businessRuleTask>
     <businessRuleTask id="_jbpm-unique-3" name="Confirm Valid Booking" g:ruleFlowGroup="confirm" >
       <extensionElements>
