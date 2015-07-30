@@ -1,8 +1,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:camel="http://camel.apache.org/schema/spring" 
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:camel="http://camel.apache.org/schema/spring" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:kie="http://drools.org/schema/kie-spring"
 	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -14,26 +12,32 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 
 	<!-- Spring Imports -->
 	<import resource="classpath:camel-beans.xml" />
-	
+
 
 
 	<camel:proxy id="labProxySender" serviceUrl="direct:start"
 		serviceInterface="com.rhc.lab.service.proxy.LabProxySender" />
-	
 
-	<!-- build session --><!-- set return class header --><!-- send session to statless Decision Service --><!-- process the returned response --><camelContext xmlns="http://camel.apache.org/schema/spring">
 
-  <route>
-  	<!-- XXX-Instructions -->
-    <from uri="direct:start"/>
-    <log message="Starting our Camel Route!"/>
-    <bean ref="requestService" method="buildSession"/>
-    <setHeader headerName="responseClazz">
-      <constant>com.rhc.lab.domain.BookingResponse</constant>
-    </setHeader>
-    <bean ref="localDecisionService" method="executeForClass(${body}, bookingProcess, ${header.responseClazz})"/>
-    <bean ref="requestService" method="saveBooking"/>
-    <to uri="mock:end"/>
-  </route>
-</camelContext>
+	<!-- build session --><!-- set return class header --><!-- send session to statless Decision Service --><!-- process the returned response -->
+	<camelContext xmlns="http://camel.apache.org/schema/spring">
+
+		<route>
+			<!-- XXX - Above the log message below, add a "from" tag to start our 
+				Camel route. The uri should match the url specified in the Camel proxy. -->
+			<log message="Starting our Camel Route!" />
+			<!-- XXX - Add a bean below to call the method to build the knowledge 
+				session. (use the BookingRequestService) -->
+			<!-- XXX - Next, set a header on the body of the Camel payload called 
+				"responseClazz" containing a constant reference to the BookingResponse class. -->
+			<!-- XXX - Now, add a bean below to call a method in the localDecisionService 
+				reference found in the kie-context.xml to execute the rules for the given 
+				request and response class. Pass in the Camel body, the "bookingProcess" 
+				process name, and the Camel header "responseClazz" as parameters. -->
+			<!-- XXX - Add a bean below to call the save method for a booking in the 
+				BookingRequestService -->
+			<!-- XXX - Finally, ad a "to" tag to end the route. Since there is no 
+				downstream endpoint to hit, this can be a mocked Camel endpoint -->
+		</route>
+	</camelContext>
 </beans>
