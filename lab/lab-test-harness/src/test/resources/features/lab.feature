@@ -3,7 +3,6 @@ Feature: Book Artists at Venues
   Venues should not allow two bookings in the same time slot
   Venues should not allow a booking with a performance it cannot accomodate
 
-  # XXX-Instructions
   Scenario: Deny a BAND to play with no opening time or closing time specified
     Given a venue "The Cellar" with an occupancy of "200"
     And the venue accomodates performances by a

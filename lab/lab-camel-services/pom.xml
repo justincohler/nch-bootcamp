@@ -11,10 +11,7 @@
 
 	<dependencies>
 		<!-- IntraProject Dependencies -->
-		<dependency>
-			<groupId>com.rhc</groupId>
-			<artifactId>lab-domain</artifactId>
-		</dependency>
+		<!-- XXX - Hint: Make sure all intra-project dependencies are on the classpath of this project -->
 		<dependency>
 			<groupId>com.rhc</groupId>
 			<artifactId>lab-kie-services</artifactId>
