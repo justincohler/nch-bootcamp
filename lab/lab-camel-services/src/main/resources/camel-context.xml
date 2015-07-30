@@ -24,7 +24,6 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 	<!-- build session --><!-- set return class header --><!-- send session to statless Decision Service --><!-- process the returned response --><camelContext xmlns="http://camel.apache.org/schema/spring">
 
   <route>
-  	<!-- XXX-Instructions -->
     <from uri="direct:start"/>
     <log message="Starting our Camel Route!"/>
     <bean ref="requestService" method="buildSession"/>

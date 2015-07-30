@@ -156,7 +156,6 @@ public class BaseSteps {
 
 	@Then("^the booking should be \"(.*?)\"$")
 	public void the_booking_should_be(String bookingStatus) throws Throwable {
-		// XXX-Instructions
 
 		if (response.getBookingStatus() != null
 				&& !response.getBookingStatus().isEmpty()) {
