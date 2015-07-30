@@ -7,7 +7,6 @@ import java.util.Date;
 
 dialect "java"
 
-// XXX-Instructions
 rule "Venue revokes requests with no open date"
 	ruleflow-group "validate"
 	when
@@ -43,8 +42,6 @@ rule "Venue revokes unsuitable Performances"
 		insert(BookingStatus.REVOKED);
 end
 
-// XXX-Instructions
-
 rule "Case 1 - Venue revokes requests for busy venues"
 	ruleflow-group "validate"
 	dialect "mvel"
@@ -60,7 +57,6 @@ rule "Case 1 - Venue revokes requests for busy venues"
 		insert(BookingStatus.REVOKED);
 end
 
-// XXX-Instructions
 rule "Case 2 - Venue revokes requests for busy venues"
 	ruleflow-group "validate"
 	dialect "mvel"
@@ -76,7 +72,6 @@ rule "Case 2 - Venue revokes requests for busy venues"
 		insert(BookingStatus.REVOKED);
 end
 
-// XXX-Instructions
 rule "Confirm booking if all validations pass"
 	ruleflow-group "confirm"
 	when 
