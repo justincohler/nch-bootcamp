@@ -165,7 +165,6 @@ public class BaseSteps {
 		// the collection and
 		// assert with JUnit that the "bookingStatus" parameter matches the
 		// response status.
-		// <hint: use org.junit.Assert.assertTrue(...) on the two statuses.
 		// XXX - Finally, remove the exception below.
 		throw new PendingException("Replace with step code here.");
 
