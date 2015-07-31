@@ -30,14 +30,15 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 				session. (use the BookingRequestService) -->
 			<!-- XXX - Next, set a header on the body of the Camel payload called 
 				"responseClazz" containing a constant reference to the BookingResponse class. -->
-			<!-- XXX - Now, add a bean below to call a method in the localDecisionService 
+			<!-- XXX - Now, add a bean reference below to call a method in the localDecisionService 
 				reference found in the kie-context.xml to execute the rules for the given 
 				request and response class. Pass in the Camel body, the "bookingProcess" 
 				process name, and the Camel header "responseClazz" as parameters. -->
-			<!-- XXX - Add a bean below to call the save method for a booking in the 
+			<!-- XXX - Below, add a bean reference to call the save method for a booking in the 
 				BookingRequestService -->
-			<!-- XXX - Finally, ad a "to" tag to end the route. Since there is no 
-				downstream endpoint to hit, this can be a mocked Camel endpoint -->
+			<!-- XXX - Finally, add a "to" tag to end the route. Since there is no 
+				downstream endpoint to hit, this can be a mock Camel endpoint 
+				(take a look at the RulesServiceTest.java for examples). -->
 		</route>
 	</camelContext>
 </beans>
