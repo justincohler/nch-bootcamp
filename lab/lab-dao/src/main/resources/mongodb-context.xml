@@ -13,7 +13,7 @@
 
 	<!-- Mongo Server Configuration -->
 	<mongo:mongo host="localhost" port="27017" />
-	<mongo:db-factory dbname="labtest" />
+	<mongo:db-factory dbname="nch-bootcamp-lab" />
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
 	</bean>
