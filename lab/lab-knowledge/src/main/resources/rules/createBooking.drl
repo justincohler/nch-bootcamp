@@ -9,7 +9,8 @@ dialect "java"
 
 // XXX #1 - To fix the feature "Deny a Band to play with no opening time or closing time specified", 
 // 		fill in the empty rule below to insert a "REVOKED" BookingStatus when the 
-//		feature conditions are met.rule "Venue revokes requests with no open date"
+//		feature conditions are met.
+rule "Venue revokes requests with no open date"
 	ruleflow-group "validate"
 	when
 	then
@@ -42,7 +43,7 @@ rule "Venue revokes unsuitable Performances"
 		insert(BookingStatus.REVOKED);
 end
 
-// XXX #3 - Using the below rule as a model, complete the rule edge case below 
+// XXX #3 - Using the below 'Case 2' rule as a model, complete the rule edge case below 
 //		to ensure that BookingRequests do not overlap with existing Bookings.
 rule "Case 1 - Venue revokes requests for busy venues"
 	ruleflow-group "validate"
