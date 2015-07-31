@@ -24,7 +24,8 @@ import com.rhc.lab.domain.Venue;
  * DAO repositories.
  * 
  */
-@Service("requestService")
+// XXX
+@Service("requestSearvice")
 public class BookingRequestService {
 
 	private static final Logger logger = LoggerFactory
