@@ -19,16 +19,12 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:camel-context.xml</param-value>
-	</context-param>
+	<!-- XXX - Add a context parameter specifying the location of the camel context on the project classpath.  -->
+	<!-- XXX - Add a listener to kick-start Spring -->
+	
 	<context-param>
      <param-name>spring.profiles.active</param-name>
      <param-value>openshift</param-value>
-</context-param>
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener
-		</listener-class>
-	</listener>
+	</context-param>
+	
 </web-app>
