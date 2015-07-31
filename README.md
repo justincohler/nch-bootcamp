@@ -14,7 +14,7 @@ Install				| URL
 Java Development Kit 7 			| [OpenJDK](http://openjdk.java.net/install/), [Oracle JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
 Apache Maven (Latest) 			| [link](http://maven.apache.org/download.cgi)
 Git 							| [link](https://git-scm.com/downloads)
-JBoss EAP 6.4.0 				| [link](https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?downloadType=distributions&product=appplatform&version=6.1.0&productChanged=yes)
+Tomcat 7.0				| [link](http://apache.mirrors.lucidnetworks.net/tomcat/tomcat-7/v7.0.63/bin/apache-tomcat-7.0.63.zip) [link2](https://tomcat.apache.org/download-70.cgi)
 JBoss BPM Suite 6.1.0 			| [link](https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?downloadType=distributions&product=bpm.suite&productChanged=yes)
 OpenShift Command Line Tools 	| [link](https://developers.openshift.com/en/managing-client-tools.html)
 MongoDB 2.6			| [link](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat/)
@@ -26,9 +26,9 @@ MongoDB 2.6			| [link](http://docs.mongodb.org/manual/tutorial/install-mongodb-o
 1. To get familiar with the format for the lab content in the remaining days of the Bootcamp
 
 ###Instructions###
-1. Run the following commands on the command line to create a new EAP 6 project called "nchlab" with large gears in OpenShift:
+1. Run the following commands on the command line to create a new EWS (Enterprise Web Server) project called "nchlab" with large gears in OpenShift:
 ```
-	rhc app-create nchlab jbosseap -g large 
+	rhc app-create nchlab jbossews-2.0 -g large 
 ```
 These commands will output the generated credentials and locations for the OpenShift Git repository our application will use. Save this information in a text file for safekeeping.
 
@@ -53,7 +53,7 @@ If you don't have large gears available, the other options are small and medium,
 ```
 	git push
 ```
-The code will be pushed to OpenShift, where OpenShift will run a Maven build on the project, copy the built deployment into the JBoss EAP container, and start the container. 
+The code will be pushed to OpenShift, where OpenShift will run a Maven build on the project, copy the built deployment into the JBoss EWS container, and start the container. 
 
 1. In your browser, navigate to https://nchlab-YOURDOMAIN.rhcloud.com/
 	* You now have a web application running business rules and Camel services on top of a MongoDB database!
@@ -72,14 +72,16 @@ Now we will import the projects from the "nchlab" repository into the JBDS (JBos
 
 No let's set up a local server to test out our application.
 
-1. Make sure that you have locally installed JBoss EAP 6.4 and have a local MongoDB database running.
+1. Make sure that you have locally installed Tomcat 7.0.x and have a local MongoDB database running.
 	* Instructions for MongoDB installation are located [here](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat/). Version 2.6 is preferred, but installing v3.0 should work fine as well.
 2. In the "Servers" view of JBDS, right click and click on New->Server...
-3. In the following dialogues, select a new JBoss EAP 6 server and point to the EAP installation on your machine.
+3. In the following dialogues, select a new Tomcat 7 server and point to the Tomcat installation on your machine.
 4. On the "Add and Remove" screen, add the lab-web project in the "Available" column to the "Configured" column and click finish.
 5. In the web.xml of the lab-web project, under the "spring.profiles.active" context-param, change "openshift" to "default" to switch the Spring profile to your local configuration.
-6. Start the new server by right clicking on the new server and clicking "Start"
-7. Point to localhost:8080/ in your web browser and you should have the application running on your local machine with a local database.
+6. Right click on the lab-web project in the Project Editor and click "Properties".
+7. Click into the Web Project Settings Properties menu on the left and set the Context root to "/". (Without quotes) 
+8. Start the new server by right clicking on the new server and clicking "Start"
+9. Point to localhost:8080/ in your web browser and you should have the application running on your local machine with a local database.
 
 ##Day 2 - Business Rules and Process Modeling##
 ###Goals###
@@ -87,7 +89,7 @@ No let's set up a local server to test out our application.
 1. Learn how to write Business Rules, and touch integration endpoints in Business Processes
 
 ###Note###
-All exercises in the code are marked by the 'XXX' label, which shows up by default the JBDS Tasks view. To expose this view in JBDS, in the top toolbar, click Window->Show View->Other..., and under "General", open "Tasks".
+All exercises in the code are marked by the 'XXX' label, which shows up by default in the JBDS Tasks view. To expose this view in JBDS, in the top toolbar, click Window->Show View->Other..., and under "General", open "Tasks".
 
 You can also search for 'XXX' in the File Search. In JBDS, in the top toolbar, click Search->File... and search on "XXX" in the "Containing Text" field.
 
@@ -116,7 +118,7 @@ The JUnit tests which implement these features are found at the following locati
 ```
 	lab-test-harness/src/test/java/com/rhc/lab/test/cucumber/RunCukesTest.java
 ```
-	* In the Junit window, the features should still fail, but the "Given" steps should all pass successfully.
+	* In the Junit window, the features should still fail, but the "Given" steps should all pass successfully. Why is this the case?
 
 The second goal of the day is to get some practice writing business rules in the Drools Rules Language.
 
@@ -130,10 +132,10 @@ The second goal of the day is to get some practice writing business rules in the
 	lab-knowledge/src/main/resources/rules/bookingProcess.bpmn2
 ```
 
-4. Verify the project builds successfully by running a Maven build.
-
-5. Once the project builds, make sure that your local application can save booking requests. 
-6. Then run the following Git commands to commit the files to your local repository and push the new code to your OpenShift instance: 
+4. Run the RunCukesTest.java again to make sure all features are passing, and throw in some log print lines to ensure your steps are executing as expected.
+5. Verify the project builds successfully by running a Maven build.
+6. Once the project builds, make sure that your local application can save booking requests. 
+7. Then run the following Git commands to commit the files to your local repository and push the new code to your OpenShift instance: 
 ```
 	git add . 
 	git commit -m "YOUR COMMIT MESSAGE" 
@@ -168,8 +170,8 @@ You will also be tasked with configuring the camel context in the servlet contai
 For reference, read through this [example](http://camel.apache.org/servlet-tomcat-example.html) on Camel in web applications.
 
 In this branch, there are a series of exercises marked by the "XXX" marker describing the components needed to implement the route described above. Complete the marked exercises and then test the application locally and in your OpenShift instance:
-1. Verify the project builds successfully by running a Maven build.
 
+1. Verify the project builds successfully by running a Maven build.
 2. Once the project builds, make sure that your local application can save booking requests. 
 3. Then run the following Git commands to commit the files to your local repository and push the new code to your OpenShift instance: 
 ```
