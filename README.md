@@ -70,7 +70,7 @@ Now we will import the projects from the "nchlab" repository into the JBDS (JBos
 	* Profiles: openshift
 1. Click 'Run' to perform the Maven build and ensure that the project build is successful.
 
-No let's set up a local server to test out our application.
+Now let's set up a local server to test out our application.
 
 1. Make sure that you have locally installed Tomcat 7.0.x and have a local MongoDB database running.
 	* Instructions for MongoDB installation are located [here](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat/). Version 2.6 is preferred, but installing v3.0 should work fine as well.
@@ -102,7 +102,7 @@ You can also search for 'XXX' in the File Search. In JBDS, in the top toolbar, c
 ```
 	git checkout day2
 ```
-1. Open JBDS and build the project as you did yesterday. The project should now fail to build. Now comes the fun part!
+1. Open JBDS and build the project as you did yesterday. Note that the tests run in the project are skipped during the build. 
 
 The first goal of the day is to learn some basic concepts of BDD. Cucumber is a popular BDD tool we use frequently on projects. The framework uses text files containing application "features", and connects the steps of each feature to a corresponding JUnit test, called a "step". There are a number of test features found in the following location:  
 ```
