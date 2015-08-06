@@ -182,11 +182,44 @@ In this branch, there are a series of exercises marked by the "XXX" marker descr
 
 ##Day 4 - Continuous Integration and Delivery##
 ###Goals###
-1. Learn how to add and use plugins in Jenkins on top of OpenShift
-1. Learn best practices in Deployment Pipelines from Justin Holmes
+1. Learn how to add and use plugins in Jenkins
+2. Using newfound BDD knowledge, add features, step code, and rules to the existing codebase
 
 ###Instructions###
-##Day 5 - Breakfix Playground##
+Today we will set up a local Jenkins instance to build and test our project.
+1. Download the latest Jenkins WAR (Web Archive) [here](https://updates.jenkins-ci.org/download/war/) or get our USB copy
+1. Download the EAP 6.4.0 Zip archive and unzip (or get our USB copy).
+1. Drop the jenkins.war file inside the $EAP_HOME/standalone/deployments directory.
+1. Create an empty file in the deployments directory suffixed with "dodeploy" with the following command:
+```
+	touch jenkins.war.dodeploy
+```
+This will tell the EAP server to deploy this application on startup of the container.
+
+1. Start the server and navigate to http://localhost:8080/jenkins. (Make sure your tomcat instance isn't running. If so, you will have port conflict issues). 
+1. Navigate to the Manage Jenkins screen.
+1. In the list of options on the management screen, click "Manage Plugins" (http://localhost:8080/jenkins/pluginManager).
+1. Since this is the first time we're adding plugins, go to the "Advanced" tab of the Plugin Manager and in the bottom right corner, click "Check now" to update the list of available plugins.
+1. Once the check has completed, navigate to the "Available" tab and select the "Cucumber Plugin", the "Cucumber Reports Plugin" and the "GitHub Plugin".
+1. Click "Install without Restart". Once the installations have completed, check the box to restart Jenkins when no builds are running.
+1. Navigate back to the homepage, and add a new Freestyle Software Job. This will take you to the configuration screen for the job.
+1. To pull in our source code, select the Git radio button on the job page and point to our GitHub master branch. Also add this to the Github field at the top of the job config.
+1. Add a new shell build step with a simple Maven install:
+```
+	mvn clean install
+```
+1. At the bottom of the job page, add a new Post-build Action "Publish cucumber results as a report". Clicking the "Advanced" button in this action reveals granular settings that can set the build to fail if, for example, there are pending Cucumber steps. Which of these do you think could be useful for different phases of a development cycle?
+1. Click "Apply" then "Save" to ensure the changes are reflected, then rebuild the project with the "Build Now" button in the job page or on the homepage.
+
+
+Now using the BDD knowledge gained in the morning presentations, implement the following example feature request:
+```
+	"We would like to add a feature where bands and orchestras cannot perform at a venue on the same day"
+```
+Attempt to add this functionality to your local master branch, or your working branch from yesterday.
+
+
+##Day 5 - Breakfix Playground##h
 ###Goals###
 1. Get familiar navigating a multi-module application to look for common breaks.
 
