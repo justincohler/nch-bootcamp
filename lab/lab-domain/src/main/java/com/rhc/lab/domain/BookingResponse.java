@@ -3,6 +3,9 @@ package com.rhc.lab.domain;
 import java.io.Serializable;
 import java.util.Collection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.rhc.lab.kie.common.KieQuery;
 
 /**
@@ -20,6 +23,9 @@ public class BookingResponse implements Serializable {
    */
 	private static final long serialVersionUID = 1074544082673724792L;
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(BookingResponse.class);
+
 	@KieQuery(binding = "$bookingRequest", queryName = "getBookingRequests")
 	private Collection<BookingRequest> bookingRequests;
 
@@ -32,8 +38,7 @@ public class BookingResponse implements Serializable {
 		if (bookingRequests != null && !bookingRequests.isEmpty()) {
 			booking = new Booking(bookingRequests.iterator().next());
 		} else {
-			// TODO: looger not sys out
-			System.out.println("No booking requests on responce");
+			logger.error("No booking requests on response");
 		}
 		return booking;
 	}

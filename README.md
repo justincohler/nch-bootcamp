@@ -11,13 +11,15 @@ Each new hire will need the following installations downloaded and unzipped prio
 
 Install				| URL
 ------------------------------- | ----------
-Java Development Kit 7 			| [OpenJDK](http://openjdk.java.net/install/), [Oracle JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
+Java Development Kit 7 (We aren't using Java 8 for this lab)		| [OpenJDK](http://openjdk.java.net/install/), [Oracle JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
 Apache Maven (Latest) 			| [link](http://maven.apache.org/download.cgi)
 Git 							| [link](https://git-scm.com/downloads)
 Tomcat 7.0				| [link](http://apache.mirrors.lucidnetworks.net/tomcat/tomcat-7/v7.0.63/bin/apache-tomcat-7.0.63.zip) [link2](https://tomcat.apache.org/download-70.cgi)
-JBoss BPM Suite 6.1.0 			| [link](https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?downloadType=distributions&product=bpm.suite&productChanged=yes)
+JBoss Enterprise Application Platform 6.4	| [link](https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=37393)
+JBoss Developer Studio 8.1			| [link](https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?downloadType=distributions&product=jbossdeveloperstudio&version=8.1.0)
 OpenShift Command Line Tools 	| [link](https://developers.openshift.com/en/managing-client-tools.html)
-MongoDB 2.6			| [link](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat/)
+MongoDB 2.6			| [link](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat/) [fedora22] (http://unix.stackexchange.com/questions/208493/problem-installing-mongodb-on-fedora)
+Nodejs and NPM                    	| [link](https://github.com/joyent/node/wiki/installing-node.js-via-package-manager)
 
 ##Day 1 - OpenShift Application Management##
 ###Goals###
@@ -28,7 +30,7 @@ MongoDB 2.6			| [link](http://docs.mongodb.org/manual/tutorial/install-mongodb-o
 ###Instructions###
 1. Run the following commands on the command line to create a new EWS (Enterprise Web Server) project called "nchlab" with large gears in OpenShift:
 ```
-	rhc app-create nchlab jbossews-2.0 -g large 
+	rhc app-create nchlab jbossews-2.0 -g large -s
 ```
 These commands will output the generated credentials and locations for the OpenShift Git repository our application will use. Save this information in a text file for safekeeping.
 
@@ -70,7 +72,7 @@ Now we will import the projects from the "nchlab" repository into the JBDS (JBos
 	* Profiles: openshift
 1. Click 'Run' to perform the Maven build and ensure that the project build is successful.
 
-Now let's set up a local server to test out our application.
+Now let's set up a local server to test out our application. An overview of the Maven structure and functional diagrams can be found [here](http://redhat.slides.com/jcohler/nchbootcamplaboverview/live#/)
 
 1. Make sure that you have locally installed Tomcat 7.0.x and have a local MongoDB database running.
 	* Instructions for MongoDB installation are located [here](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat/). Version 2.6 is preferred, but installing v3.0 should work fine as well.
@@ -85,8 +87,9 @@ Now let's set up a local server to test out our application.
 
 ##Day 2 - Business Rules and Process Modeling##
 ###Goals###
-1. To get familiar with BDD (Behavior-Driven-Development) by using the Cucumber test Framework
-1. Learn how to write Business Rules, and touch integration endpoints in Business Processes
+1. To get familiar with BDD (Behavior-Driven-Development) and Buisness Requirements Gathering
+2. Learn how to use the Cucumber framework to build scenarios
+3. Learn how to write Business Rules, and touch integration endpoints in Business Processes
 
 ###Note###
 All exercises in the code are marked by the 'XXX' label, which shows up by default in the JBDS Tasks view. To expose this view in JBDS, in the top toolbar, click Window->Show View->Other..., and under "General", open "Tasks".
@@ -104,7 +107,12 @@ You can also search for 'XXX' in the File Search. In JBDS, in the top toolbar, c
 ```
 1. Open JBDS and build the project as you did yesterday. Note that the tests run in the project are skipped during the build. 
 
-The first goal of the day is to learn some basic concepts of BDD. Cucumber is a popular BDD tool we use frequently on projects. The framework uses text files containing application "features", and connects the steps of each feature to a corresponding JUnit test, called a "step". There are a number of test features found in the following location:  
+The first part of today will be a mock client situation. We will work together in order to help define new functionality for our application.  
+
+The specifics for this activity can be found in the [lab resource section](https://github.com/justincohler/nch-bootcamp/blob/master/lab%20resources/README.md) of the github  
+
+
+The second goal of the day is to learn some basic way of working with Cucumber, a popular BDD tool we use frequently on projects. The framework uses text files containing application "features", and connects the steps of each feature to a corresponding JUnit test, called a "step". There are a number of test features found in the following location:  
 ```
 	lab-test-harness/src/test/resources/features/lab.feature  
 ```
@@ -113,6 +121,7 @@ The JUnit tests which implement these features are found at the following locati
 ```
 	lab-test-harness/src/test/java/com/rhc/lab/test/cucumber/BaseSteps.java
 ```
+A very brief overview can been found as part of the [lab resource section](https://github.com/justincohler/nch-bootcamp/blob/master/lab%20resources/README.md) of the github  
 
 1. To start today's exercises inside of BaseSteps.java, there are two methods which have to be implemented. They are marked by the 'XXX' comment. Fill in each of these methods according to the instructions in the comments, and run the following Cucumber test to verify your results: 
 ```
@@ -120,22 +129,23 @@ The JUnit tests which implement these features are found at the following locati
 ```
 	* In the Junit window, the features should still fail, but the "Given" steps should all pass successfully. Why is this the case?
 
-The second goal of the day is to get some practice writing business rules in the Drools Rules Language.
+The second goal of the day is to get some practice writing business rules in the Drools Rules Language. You will implement the rules and process that will confirm or revoke a venue booking request. 
 
-2. You will implement the rules that will confirm or revoke a venue booking request. Locate the business rules at the following location:  
+2. Take a look at the Business Process Model found at the following location to ensure the ruleflow groups used in the project are defined correctly. You can open the file if you have successfully installed the BPMS tooling and look in the 'Properties' view of JBDS.
+```
+	lab-knowledge/src/main/resources/rules/bookingProcess.bpmn2
+```
+3. Locate the business rules at the following location:  
 ```
 	lab-knowledge/src/main/resources/rules/createBooking.drl
 ```
 
-3. Several empty rules have to be implemented. They are marked by the 'XXX' comments. Fill in each of these rules according to the instructions in the comments, and run RunCukesTest.java to verify the rules pass the features written. At this point the rules will not pass. Take a look at the Business Process Model found at the following location to ensure the ruleflow groups are defined correctly:
-```
-	lab-knowledge/src/main/resources/rules/bookingProcess.bpmn2
-```
+4. Several empty rules have to be implemented. They are marked by the 'XXX' comments. Fill in each of these rules according to the instructions in the comments, and run RunCukesTest.java to verify the rules pass the features written.
 
-4. Run the RunCukesTest.java again to make sure all features are passing, and throw in some log print lines to ensure your steps are executing as expected.
-5. Verify the project builds successfully by running a Maven build.
-6. Once the project builds, make sure that your local application can save booking requests. 
-7. Then run the following Git commands to commit the files to your local repository and push the new code to your OpenShift instance: 
+5. Run the RunCukesTest.java again to make sure all features are passing, and throw in some log print lines to ensure your steps are executing as expected.
+6. Verify the project builds successfully by running a Maven build.
+7. Once the project builds, make sure that your local application can save booking requests. 
+8. Then run the following Git commands to commit the files to your local repository and push the new code to your OpenShift instance: 
 ```
 	git add . 
 	git commit -m "YOUR COMMIT MESSAGE" 
@@ -182,10 +192,35 @@ In this branch, there are a series of exercises marked by the "XXX" marker descr
 
 ##Day 4 - Continuous Integration and Delivery##
 ###Goals###
-1. Learn how to add and use plugins in Jenkins on top of OpenShift
-1. Learn best practices in Deployment Pipelines from Justin Holmes
+1. Learn how to add and use plugins in Jenkins
 
 ###Instructions###
+Today we will set up a local Jenkins instance to build and test our project.
+
+1. Download the latest Jenkins WAR (Web Archive) [here](https://updates.jenkins-ci.org/download/war/) or get our USB copy. 
+1. Download the EAP 6.4.0 Zip archive and unzip (or get our USB copy). 
+1. Drop the jenkins.war file inside the $EAP_HOME/standalone/deployments directory. 
+1. Create an empty file in the deployments directory suffixed with "dodeploy" with the following command:
+```
+	touch jenkins.war.dodeploy
+```
+This will tell the EAP server to deploy this application on startup of the container.
+
+1. Start the server and navigate to http://localhost:8080/jenkins. (Make sure your tomcat instance isn't running. If so, you will have port conflict issues). 
+1. Navigate to the Manage Jenkins screen.
+1. In the list of options on the management screen, click "Manage Plugins" (http://localhost:8080/jenkins/pluginManager).
+1. Since this is the first time we're adding plugins, go to the "Advanced" tab of the Plugin Manager and in the bottom right corner, click "Check now" to update the list of available plugins.
+1. Once the check has completed, navigate to the "Available" tab and select the "Cucumber Plugin", the "Cucumber Reports Plugin" and the "GitHub Plugin".
+1. Click "Install without Restart". Once the installations have completed, check the box to restart Jenkins when no builds are running.
+1. Navigate back to the homepage, and add a new Freestyle Software Job. This will take you to the configuration screen for the job.
+1. To pull in our source code, select the Git radio button on the job page and point to our GitHub master branch. Also add this to the Github field at the top of the job config.
+1. Add a new shell build step with a simple Maven install:
+```
+	mvn clean install
+```
+1. At the bottom of the job page, add a new Post-build Action "Publish cucumber results as a report". Clicking the "Advanced" button in this action reveals granular settings that can set the build to fail if, for example, there are pending Cucumber steps. Which of these do you think could be useful for different phases of a development cycle?
+1. Click "Apply" then "Save" to ensure the changes are reflected, then rebuild the project with the "Build Now" button in the job page or on the homepage.
+
 ##Day 5 - Breakfix Playground##
 ###Goals###
 1. Get familiar navigating a multi-module application to look for common breaks.

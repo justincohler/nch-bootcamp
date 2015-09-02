@@ -2,6 +2,9 @@
 
 ## Prerequisites ##
 
+### Reading ###
+Required: Please read the [Pro Git] (https://git-scm.com/book/en/v2) book chapters 1-4.
+
 ### Have Git Installed ###
 
 Install the latest git in one of the following ways:

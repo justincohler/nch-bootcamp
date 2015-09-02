@@ -5,14 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import com.rhc.lab.dao.BookingRepository;
 import com.rhc.lab.domain.Booking;
+import com.rhc.lab.service.BookingRequestService;
 
 public class BookingCucumberRepository implements BookingRepository {
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(BookingCucumberRepository.class);
 
 	private Map<String, Booking> bookingRepo = new HashMap<String, Booking>();
 
@@ -101,7 +107,8 @@ public class BookingCucumberRepository implements BookingRepository {
 
 	@Override
 	public List<Booking> findByVenueName(String name) {
-		System.out.println("looking in dao");
+		logger.info("looking in dao");
+
 		// TODO Auto-generated method stub
 		List<Booking> list = new ArrayList<Booking>();
 		for (Booking booking : bookingRepo.values()) {

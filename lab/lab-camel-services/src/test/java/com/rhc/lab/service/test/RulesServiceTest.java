@@ -2,7 +2,9 @@ package com.rhc.lab.service.test;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -60,6 +62,9 @@ public class RulesServiceTest {
 		venue.setId("1");
 		venue.setName("boo");
 		// save venue
+		List<PerformanceType> types = new ArrayList<PerformanceType>();
+		types.add(PerformanceType.COMIC);
+		venue.setAccomodations(types);
 		venueRepo.save(venue);
 		// clear booking repo
 		bookingRepo.deleteAll();

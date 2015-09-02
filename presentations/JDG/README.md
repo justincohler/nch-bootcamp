@@ -7,6 +7,8 @@ The Maven repository containing all dependencies you will need for these project
 
 The latest version of Red Hat JBoss Data Grid is included in the server/ folder.
 
+The documentation for Data Grid can be accessed [here](https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Data_Grid/). A whitepaper discussing the performance of Data Grid can be accessed [here](http://www.redhat.com/en/resources/red-hat-jboss-data-grid-performance-factors).
+
 ## 1. Basic configuration ##
 * Project: basic
 * Inspect the project and find the classes which create Caches. Note that there are two types of caches: library (the cache resides in the same jvm as the application) and client-server mode (the cache and the application reside in seperate jvms). There are two ways of configration library mode caches, one is using the Java api and the other is to provide the configuration with an xml file. In client-server mode the configuration is specified in the application servers configuration file (standalone.xml or clustered.xml). The xml configuration for library mode and the xml configuration for client-server mode differ slightly. Be on the lookout for these idiosyncrasies.

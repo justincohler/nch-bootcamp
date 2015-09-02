@@ -11,6 +11,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rhc.lab.domain.BookingRequest;
 import com.rhc.lab.domain.PerformanceType;
@@ -24,6 +26,9 @@ import com.rhc.lab.domain.Venue;
  * 
  */
 public class JsonPayloadTest {
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(JsonPayloadTest.class);
 
 	private ObjectMapper om;
 
@@ -40,8 +45,9 @@ public class JsonPayloadTest {
 		String requestString = om.writer().writeValueAsString(request);
 
 		assertNotNull(requestString);
-		System.out.println(om.writerWithDefaultPrettyPrinter()
-				.writeValueAsString(request));
+
+		logger.info(om.writerWithDefaultPrettyPrinter().writeValueAsString(
+				request));
 
 		BookingRequest r = om.readValue(requestString, BookingRequest.class);
 		assertNotNull(r.getOpen());

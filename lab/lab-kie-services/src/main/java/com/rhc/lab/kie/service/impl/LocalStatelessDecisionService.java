@@ -47,7 +47,7 @@ public class LocalStatelessDecisionService implements StatelessDecisionService {
 		try {
 			kieBase.newStatelessKieSession();
 		} catch (Exception e) {
-			System.out.println("could not find kie module");
+			logger.error("Could not find kie module");
 		}
 
 		commandFactory = KieServices.Factory.get().getCommands();

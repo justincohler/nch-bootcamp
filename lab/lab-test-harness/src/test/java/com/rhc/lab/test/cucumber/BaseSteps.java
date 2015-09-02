@@ -8,6 +8,8 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.junit.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.rhc.lab.domain.Booking;
@@ -39,6 +41,9 @@ public class BaseSteps {
 	@Resource(name = "localDecisionServiceBean")
 	private StatelessDecisionService decisionService;
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(BaseSteps.class);
+
 	private VenueCucumberRepository venueRepo = new VenueCucumberRepository();
 	private BookingCucumberRepository bookingRepo = new BookingCucumberRepository();
 	private Venue venue = new Venue();
@@ -62,7 +67,8 @@ public class BaseSteps {
 		}
 
 		request.setVenueName(venueName);
-		System.out.println("Given step: " + venueName + " " + occupancy);
+		
+		logger.info("Given step: " + venueName + " " + occupancy);
 	}
 
 	@Given("^an existing \"(.*?)\" performance by \"(.*?)\" from \"(.*?)\" to \"(.*?)\"$")
@@ -83,7 +89,8 @@ public class BaseSteps {
 		booking.setOpen(dOpen);
 		booking.setClose(dClose);
 		booking.setVenueName(venue.getName());
-		System.out.println("saving previous booking" + booking.toString());
+		
+		logger.info("saving previous booking " + booking.toString());
 		bookingRepo.save(booking);
 
 	}
@@ -98,7 +105,7 @@ public class BaseSteps {
 
 		venue.setAccomodations(accomodations);
 
-		System.out.println("And first step: " + artistTypes);
+		logger.info("And first step: " + artistTypes);
 
 	}
 
@@ -115,7 +122,7 @@ public class BaseSteps {
 		}
 		request.setPerformer(performer);
 
-		System.out.println("And second step: " + type + " " + artistName);
+		logger.info("And second step: " + type + " " + artistName);
 	}
 
 	@And("^a dated request for a \"(.*?)\" performance by \"(.*?)\" from \"(.*?)\" to \"(.*?)\"$")
@@ -139,7 +146,7 @@ public class BaseSteps {
 		request.setClose(dClose);
 		request.setVenueName(venue.getName());
 
-		System.out.println("And second step: " + request.toString());
+		logger.info("And second step: " + request.toString());
 	}
 
 	@When("^validating the booking$")
@@ -151,7 +158,7 @@ public class BaseSteps {
 				BookingResponse.class);
 		requestService.saveBooking(response);
 
-		System.out.println("When step");
+		logger.info("When step");
 	}
 
 	@Then("^the booking should be \"(.*?)\"$")

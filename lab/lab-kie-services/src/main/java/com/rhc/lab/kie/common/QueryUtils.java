@@ -27,11 +27,16 @@ import org.kie.api.command.Command;
 import org.kie.api.runtime.ExecutionResults;
 import org.kie.api.runtime.rule.QueryResults;
 import org.kie.api.runtime.rule.QueryResultsRow;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
  */
 public class QueryUtils {
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(QueryUtils.class);
 
 	/**
 	 * Creates query commands based on the QueryInfo annotation on methods in
@@ -42,7 +47,7 @@ public class QueryUtils {
 	 */
 
 	public static List<Command<?>> buildQueryCommands(Class<?> clazz) {
-		System.out.println("building query for" + clazz);
+		logger.info("building query for " + clazz);
 		List<Command<?>> queryCommands = new ArrayList<Command<?>>();
 		if (clazz != null) {
 			Collection<Field> fields = getAllFields(clazz);
