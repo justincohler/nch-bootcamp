@@ -45,6 +45,7 @@ end
 
 // XXX #3 - Using the below 'Case 2' rule as a model, complete the rule edge case below 
 //		to ensure that BookingRequests do not overlap with existing Bookings.
+// This rule deals with situations where a request open is during an existing booking
 rule "Case 1 - Venue revokes requests for busy venues"
 	ruleflow-group "validate"
 	dialect "mvel"
@@ -52,6 +53,7 @@ rule "Case 1 - Venue revokes requests for busy venues"
 	then
 end
 
+// This rule deals with situations where a request close is during an existing booking
 rule "Case 2 - Venue revokes requests for busy venues"
 	ruleflow-group "validate"
 	dialect "mvel"
