@@ -186,6 +186,17 @@ In this branch, there are a series of exercises marked by the "XXX" marker descr
 2. Using newfound BDD knowledge, add features, step code, and rules to the existing codebase
 
 ###Instructions###
+1. In your openshift workspace, do the following to check out the master branch of the repository.
+```
+	git checkout master
+```
+2. In order to add Jenkins CI to the existing OpenShift instance, run the following command:
+```
+	rhc cartridge add -c jenkins-client-1 -a nchlab
+```
+3. Take note of the credentials for the Jenkins instance, and log into the Jenkins container at jenkins-YOURDOMAIN.rhcloud.com
+
+###Alternative Instructions###
 Today we will set up a local Jenkins instance to build and test our project.
 
 1. Download the latest Jenkins WAR (Web Archive) [here](https://updates.jenkins-ci.org/download/war/) or get our USB copy. 
