@@ -210,11 +210,6 @@ In this branch, there are a series of exercises marked by the "XXX" marker descr
 1. Click "Install without Restart". Once the installations have completed, check the box to restart Jenkins when no builds are running.
 1. Navigate back to the homepage, and click on the nchlab build job on the jobs page. Click on the "Configure" button in the left menu.
 1. Take a look at the build steps in the job's Configuration. Can you conceptualize what is happening in this build script?
-1. Inside of the build script, under the gear build, there is a comment "# Run tests here". Add a line to run the tests in our application:
-```
-	mvn test
-```
-1. At the bottom of the job page, add a new Post-build Action "Publish cucumber results as a report". Clicking the "Advanced" button in this action reveals granular settings that can set the build to fail if, for example, there are pending Cucumber steps. Which of these do you think could be useful for different phases of a development cycle?
 1. Click "Apply" then "Save" to ensure the changes are reflected, then rebuild the project with the "Build Now" button in the job page or on the homepage.
 
 <BREAK>
