@@ -190,46 +190,32 @@ In this branch, there are a series of exercises marked by the "XXX" marker descr
 ```
 	git checkout master
 ```
-2. In order to add Jenkins CI to the existing OpenShift instance, run the following command:
+1. Add a new Jenkins application to your OpenShift, run the following command:
+```
+	rhc app create jenkins jenkins-1
+```
+1. Take note of the credentials for the Jenkins instance.
+1. In order to add Jenkins CI to the existing OpenShift nchlab application, run the following command:
 ```
 	rhc cartridge add -c jenkins-client-1 -a nchlab
 ```
-3. Take note of the credentials for the Jenkins instance, and log into the Jenkins container at jenkins-YOURDOMAIN.rhcloud.com
-
-###Alternative Instructions###
-Today we will set up a local Jenkins instance to build and test our project.
-
-1. Download the latest Jenkins WAR (Web Archive) [here](https://updates.jenkins-ci.org/download/war/) or get our USB copy. 
-1. Download the EAP 6.4.0 Zip archive and unzip (or get our USB copy). 
-1. Drop the jenkins.war file inside the $EAP_HOME/standalone/deployments directory. 
-1. Create an empty file in the deployments directory suffixed with "dodeploy" with the following command:
-```
-	touch jenkins.war.dodeploy
-```
-This will tell the EAP server to deploy this application on startup of the container.
-
-1. Start the server and navigate to http://localhost:8080/jenkins. (Make sure your tomcat instance isn't running. If so, you will have port conflict issues). 
+1. Log into the Jenkins container at jenkins-YOURDOMAIN.rhcloud.com
 1. Navigate to the Manage Jenkins screen.
-1. In the list of options on the management screen, click "Manage Plugins" (http://localhost:8080/jenkins/pluginManager).
+1. In the list of options on the management screen, click "Configure System".
+1. In the list of options in Configuration, change the "# of executors" field to 2, and click "Save".
+1. Navigate back to the Manage Jenkins screen.
+1. In the list of options on the management screen, click "Manage Plugins".
 1. Since this is the first time we're adding plugins, go to the "Advanced" tab of the Plugin Manager and in the bottom right corner, click "Check now" to update the list of available plugins.
 1. Once the check has completed, navigate to the "Available" tab and select the "Cucumber Plugin", the "Cucumber Reports Plugin" and the "GitHub Plugin".
 1. Click "Install without Restart". Once the installations have completed, check the box to restart Jenkins when no builds are running.
-1. Navigate back to the homepage, and add a new Freestyle Software Job. This will take you to the configuration screen for the job.
-1. To pull in our source code, select the Git radio button on the job page and point to our GitHub master branch. Also add this to the Github field at the top of the job config.
-1. Add a new shell build step with a simple Maven install:
-```
-	mvn clean install
-```
+1. Navigate back to the homepage, and click on the nchlab build job on the jobs page. Click on the "Configure" button in the left menu.
+1. Take a look at the build steps in the job's Configuration. Can you conceptualize what is happening in this build script?
 1. At the bottom of the job page, add a new Post-build Action "Publish cucumber results as a report". Clicking the "Advanced" button in this action reveals granular settings that can set the build to fail if, for example, there are pending Cucumber steps. Which of these do you think could be useful for different phases of a development cycle?
 1. Click "Apply" then "Save" to ensure the changes are reflected, then rebuild the project with the "Build Now" button in the job page or on the homepage.
 
+<BREAK>
 
-Now using the BDD knowledge gained in the morning presentations, implement the following example feature request:
-```
-	"We would like to add a feature where bands and orchestras cannot perform at a venue on the same day"
-```
-Attempt to add this functionality to your local master branch, or your working branch from yesterday.
-
+The second activity of the day will be to implement the requirements we discussed on Tuesday where we will add rule(s) to our booking website to add a buffer period to the end of every performance to ensure that performers have time to tear down their rigs. Work in teams to deliver this new functionality!
 
 ##Day 5 - Breakfix Playground##
 ###Goals###
