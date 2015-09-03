@@ -211,6 +211,16 @@ In this branch, there are a series of exercises marked by the "XXX" marker descr
 1. Navigate back to the homepage, and click on the nchlab build job on the jobs page. Click on the "Configure" button in the left menu.
 1. Take a look at the build steps in the job's Configuration. Can you conceptualize what is happening in this build script?
 1. Click "Apply" then "Save" to ensure the changes are reflected, then rebuild the project with the "Build Now" button in the job page or on the homepage.
+1. Now let's create a new job. On the Jenkins homepage and click New->Job->New Freestyle Software Project. Name the project.
+1. Under Source Code Management in the Job Configuration, click on the 'Git' radio button, and enter the url to the GitHub master repo (https://github.com/justincohler/nch-bootcamp.git).
+1. Add a build step of the type "Execute Shell".
+1. Inside of the shell window, enter the following line:
+```
+	mvn clean install -Popenshift
+```
+1. Add a post-build step to "Publish Cucumber Reports". 
+1. Save the job configuration, and click the "Build Now" button for the job.
+1. Make sure the build passes (The circle next to the job will turn blue on a successful build)
 
 <BREAK>
 
